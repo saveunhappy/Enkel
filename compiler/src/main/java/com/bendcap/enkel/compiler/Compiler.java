@@ -18,7 +18,8 @@ import java.util.Queue;
 public class Compiler implements Opcodes {
 
     public static void main(String[] args) throws Exception {
-        new Compiler().compile(args);
+        String[] aaa = {"EnkelExample/first.enk"};
+        new Compiler().compile(aaa);
     }
 
     public void compile(String[] args) throws Exception {

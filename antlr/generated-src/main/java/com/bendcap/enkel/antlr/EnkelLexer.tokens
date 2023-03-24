@@ -3,8 +3,10 @@ NUMBER=4
 EQUALS=3
 VARIABLE=1
 STRING=5
+END=7
 ID=6
-WS=7
+WS=8
 '='=3
+';'=7
 'print'=2
 'var'=1

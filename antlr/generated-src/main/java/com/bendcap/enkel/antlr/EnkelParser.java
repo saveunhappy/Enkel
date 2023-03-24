@@ -19,9 +19,10 @@ public class EnkelParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		VARIABLE=1, PRINT=2, EQUALS=3, NUMBER=4, STRING=5, ID=6, WS=7;
+		VARIABLE=1, PRINT=2, EQUALS=3, NUMBER=4, STRING=5, ID=6, END=7, WS=8;
 	public static final String[] tokenNames = {
-		"<INVALID>", "'var'", "'print'", "'='", "NUMBER", "STRING", "ID", "WS"
+		"<INVALID>", "'var'", "'print'", "'='", "NUMBER", "STRING", "ID", "';'", 
+		"WS"
 	};
 	public static final int
 		RULE_compilationUnit = 0, RULE_variable = 1, RULE_print = 2, RULE_value = 3;
@@ -128,6 +129,7 @@ public class EnkelParser extends Parser {
 		public ValueContext value() {
 			return getRuleContext(ValueContext.class,0);
 		}
+		public TerminalNode END() { return getToken(EnkelParser.END, 0); }
 		public TerminalNode VARIABLE() { return getToken(EnkelParser.VARIABLE, 0); }
 		public VariableContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -153,6 +155,7 @@ public class EnkelParser extends Parser {
 			setState(18); match(ID);
 			setState(19); match(EQUALS);
 			setState(20); value();
+			setState(21); match(END);
 			}
 		}
 		catch (RecognitionException re) {
@@ -169,6 +172,7 @@ public class EnkelParser extends Parser {
 	public static class PrintContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(EnkelParser.ID, 0); }
 		public TerminalNode PRINT() { return getToken(EnkelParser.PRINT, 0); }
+		public TerminalNode END() { return getToken(EnkelParser.END, 0); }
 		public PrintContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -189,8 +193,9 @@ public class EnkelParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(22); match(PRINT);
-			setState(23); match(ID);
+			setState(23); match(PRINT);
+			setState(24); match(ID);
+			setState(25); match(END);
 			}
 		}
 		catch (RecognitionException re) {
@@ -226,18 +231,18 @@ public class EnkelParser extends Parser {
 		ValueContext _localctx = new ValueContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_value);
 		try {
-			setState(27);
+			setState(29);
 			switch (_input.LA(1)) {
 			case NUMBER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(25); ((ValueContext)_localctx).op = match(NUMBER);
+				setState(27); ((ValueContext)_localctx).op = match(NUMBER);
 				}
 				break;
 			case STRING:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(26); ((ValueContext)_localctx).op = match(STRING);
+				setState(28); ((ValueContext)_localctx).op = match(STRING);
 				}
 				break;
 			default:
@@ -256,15 +261,15 @@ public class EnkelParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\t \4\2\t\2\4\3\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\n\"\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\3\2\3\2\7\2\r\n\2\f\2\16\2\20\13\2\3\2\3\2\3\3\3\3"+
-		"\3\3\3\3\3\3\3\4\3\4\3\4\3\5\3\5\5\5\36\n\5\3\5\2\2\6\2\4\6\b\2\2\36\2"+
-		"\16\3\2\2\2\4\23\3\2\2\2\6\30\3\2\2\2\b\35\3\2\2\2\n\r\5\4\3\2\13\r\5"+
-		"\6\4\2\f\n\3\2\2\2\f\13\3\2\2\2\r\20\3\2\2\2\16\f\3\2\2\2\16\17\3\2\2"+
-		"\2\17\21\3\2\2\2\20\16\3\2\2\2\21\22\7\2\2\3\22\3\3\2\2\2\23\24\7\3\2"+
-		"\2\24\25\7\b\2\2\25\26\7\5\2\2\26\27\5\b\5\2\27\5\3\2\2\2\30\31\7\4\2"+
-		"\2\31\32\7\b\2\2\32\7\3\2\2\2\33\36\7\6\2\2\34\36\7\7\2\2\35\33\3\2\2"+
-		"\2\35\34\3\2\2\2\36\t\3\2\2\2\5\f\16\35";
+		"\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\5\3\5\5\5 \n\5\3\5\2\2\6\2\4\6\b\2"+
+		"\2 \2\16\3\2\2\2\4\23\3\2\2\2\6\31\3\2\2\2\b\37\3\2\2\2\n\r\5\4\3\2\13"+
+		"\r\5\6\4\2\f\n\3\2\2\2\f\13\3\2\2\2\r\20\3\2\2\2\16\f\3\2\2\2\16\17\3"+
+		"\2\2\2\17\21\3\2\2\2\20\16\3\2\2\2\21\22\7\2\2\3\22\3\3\2\2\2\23\24\7"+
+		"\3\2\2\24\25\7\b\2\2\25\26\7\5\2\2\26\27\5\b\5\2\27\30\7\t\2\2\30\5\3"+
+		"\2\2\2\31\32\7\4\2\2\32\33\7\b\2\2\33\34\7\t\2\2\34\7\3\2\2\2\35 \7\6"+
+		"\2\2\36 \7\7\2\2\37\35\3\2\2\2\37\36\3\2\2\2 \t\3\2\2\2\5\f\16\37";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
