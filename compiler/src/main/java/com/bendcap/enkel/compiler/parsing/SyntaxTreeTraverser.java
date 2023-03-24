@@ -16,6 +16,11 @@ import java.util.Queue;
  */
 public class SyntaxTreeTraverser {
     public Queue<Instruction> getInstructions(String fileAbsolutePath) throws IOException {
+        //把文件中的内容都读取到CharStream中去了  文件内容：
+        //var five = 5
+        //print five
+        //var dupa = "dupa"
+        //print dupa
         CharStream charStream = new ANTLRFileStream(fileAbsolutePath); //fileAbsolutePath - file containing first enk code file
 
         EnkelLexer lexer = new EnkelLexer(charStream);  //create lexer (pass enk file to it)
@@ -29,6 +34,7 @@ public class SyntaxTreeTraverser {
 
         parser.addErrorListener(errorListener);
         parser.addParseListener(listener);
+        //开始汇编！
         parser.compilationUnit(); //compilation unit is root parser rule - start from it!
         return listener.getInstructionsQueue();
     }
