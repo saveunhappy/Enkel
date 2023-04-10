@@ -1,6 +1,6 @@
-first {
-    var five=5
+second {
+    var five=100
     print five
-    var dupa="dupa"
+    var dupa="gagaga"
     print dupa
 }

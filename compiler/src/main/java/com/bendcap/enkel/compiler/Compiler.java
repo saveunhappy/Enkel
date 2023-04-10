@@ -16,7 +16,9 @@ import java.io.OutputStream;
 public class Compiler implements Opcodes {
 
     public static void main(String[] args) throws Exception {
-        new Compiler().compile(args);
+        String[] aaa = {"EnkelExample/first.enk"};
+        new Compiler().compile(aaa);
+//        new Compiler().compile(args);
     }
 
     public void compile(String[] args) throws Exception {
@@ -25,6 +27,7 @@ public class Compiler implements Opcodes {
             System.out.println(argumentsErrors.getMessage());
             return;
         }
+
         final File enkelFile = new File(args[0]);
         String fileAbsolutePath = enkelFile.getAbsolutePath();
         final CompilationUnit compilationUnit = new SyntaxTreeTraverser().getCompilationUnit(fileAbsolutePath);

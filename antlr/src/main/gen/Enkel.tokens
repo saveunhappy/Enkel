@@ -1,0 +1,16 @@
+T__0=1
+T__1=2
+T__2=3
+VARIABLE=4
+PRINT=5
+EQUALS=6
+NUMBER=7
+STRING=8
+ID=9
+WS=10
+'{'=1
+'}'=2
+':'=3
+'var'=4
+'print'=5
+'='=6

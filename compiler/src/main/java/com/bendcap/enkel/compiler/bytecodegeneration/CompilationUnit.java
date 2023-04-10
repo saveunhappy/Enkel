@@ -10,6 +10,8 @@ import static org.objectweb.asm.Opcodes.*;
 /**
  * Created by KevinOfNeu on 2018/8/13  22:41.
  */
+//原来没有这个类的时候，这个只是根据传进来的文件名作为类名，生成一个Main函数进行打印和输出，
+//现在只是暂时迁移到这边来，还是只生成一个main函数。
 public class CompilationUnit {
     private ClassDeclaration classDeclaration;
 

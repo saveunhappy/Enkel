@@ -8,6 +8,7 @@ import java.util.Queue;
 /**
  * Created by KevinOfNeu on 2018/8/13  22:41.
  */
+//类的声明，存储着里面的一些指令
 public class ClassDeclaration {
     private Queue<ClassScopeInstruction> classScopeInstructions = new ArrayDeque<>();
     private String name;
