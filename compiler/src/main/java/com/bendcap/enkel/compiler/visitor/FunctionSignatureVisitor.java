@@ -25,7 +25,7 @@ public class FunctionSignatureVisitor extends EnkelBaseVisitor<FunctionSignature
             Type type = TypeResolver.getFromTypeName(argCtx.type());
             FunctionParameter functionParameter = new FunctionParameter(name, type);
             parameters.add(functionParameter);
-        }
+        } // 返回值类型，String 啊，int 啊，ResponseDto啊
         Type returnType = TypeResolver.getFromTypeName(ctx.type());
         return new FunctionSignature(functionName, parameters, returnType);
     }
