@@ -17,16 +17,16 @@ public class FunctionSignatureVisitor extends EnkelBaseVisitor<FunctionSignature
     @Override
     public FunctionSignature visitFunctionDeclaration(EnkelParser.FunctionDeclarationContext ctx) {
         String functionName = ctx.functionName().getText();
-        List<EnkelParser.FunctionArgumentContext> argsCtx = ctx.functionArgument();
+        List<EnkelParser.FunctionArgumentContext> argsCtx = ctx.functionArgument();//参数当然是有多个了，int a,int b所以返回的也是一个List
         List<FunctionParameter> parameters = new ArrayList<>();
         for (int i = 0; i < argsCtx.size(); i++) {
             EnkelParser.FunctionArgumentContext argCtx = argsCtx.get(i);
-            String name = argCtx.ID().getText();
-            Type type = TypeResolver.getFromTypeName(argCtx.type());
-            FunctionParameter functionParameter = new FunctionParameter(name, type);
+            String name = argCtx.ID().getText();//(string[] args)这里获取的就是args,参数的名字
+            Type type = TypeResolver.getFromTypeName(argCtx.type());// functionArgument : type ID functionParamdefaultValue? ; 类型，参数名，值，就是说可以是（int a = 0,int b = 1）问号就是0次或者一次，那么就是可以有默认值，可以没有，这个type对应的是枚举的名字，string[]对应的就是string的数组，就是STRING_ARR
+            FunctionParameter functionParameter = new FunctionParameter(name, type);//name:args,type:STRING_ARR
             parameters.add(functionParameter);
         } // 返回值类型，String 啊，int 啊，ResponseDto啊
-        Type returnType = TypeResolver.getFromTypeName(ctx.type());
-        return new FunctionSignature(functionName, parameters, returnType);
+        Type returnType = TypeResolver.getFromTypeName(ctx.type());//void main (string[] args)  这里void对应的就是VOID枚举
+        return new FunctionSignature(functionName, parameters, returnType);//main,(args,STRING_ARR),VOID
     }
 }

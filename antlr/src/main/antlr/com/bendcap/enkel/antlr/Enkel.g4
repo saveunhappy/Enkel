@@ -18,6 +18,9 @@ superClassName : ':' ID ;
 classBody :  function* ;
 //方法声明可以有八大基本类型或者是void，或者不写也行，也可以是对象类型的，但是必须要加上全限定名，然后就是方法体了，
 //方法体也是一个块儿，可以有，也可以没有，也可以是一个函数。
+//这个block就是你在一个语句块儿中的东西了，比如 var a = 1  var b = 2 var c = a  var a = string(a) 可以是变量，可以是值，可以是函数
+//或者  print a  print 1  print string(a)
+//或者是print string(print(getMessage(a)))    getmessage(int a){var a = 1  var b = 2 var c = a  var a = string(a)},可以一直嵌套
 function : functionDeclaration '{' (blockStatement)* '}' ;
 // (type)？ 就是返回类型可以写也可以不写。
 functionDeclaration : (type)? functionName '('  (functionArgument)* (',' functionArgument)* ')' ;

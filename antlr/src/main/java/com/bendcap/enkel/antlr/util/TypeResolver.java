@@ -15,7 +15,7 @@ import java.util.Optional;
 public class TypeResolver {
     public static Type getFromTypeName(EnkelParser.TypeContext typeContext) {
         if (typeContext == null) return BuiltInType.VOID;
-        String typeName = typeContext.getText();
+        String typeName = typeContext.getText();//获取参数类型 (string[] args)类型就是string[],而且获取对应的枚举有三个值，自己定义这门语言的参数类型，对应Java中的参数类型，以及创建字节码的描述符
         Optional<? extends Type> buildInType = getBuiltInType(typeName);
         if (buildInType.isPresent()) return buildInType.get();
         return new ClassType(typeName);
