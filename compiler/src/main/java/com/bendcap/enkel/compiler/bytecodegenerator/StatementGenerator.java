@@ -14,6 +14,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
+import static org.objectweb.asm.Opcodes.GETSTATIC;
+import static org.objectweb.asm.Opcodes.INVOKEVIRTUAL;
+
 /**
  * Created by KevinOfNeu on 2018/8/22  15:30.
  */
@@ -42,13 +45,16 @@ public class StatementGenerator {
     public void generate(PrintStatement printStatement, Scope scope) {
         ExpressionGenerator expressionGenrator = new ExpressionGenerator(methodVisitor);
         Expression expression = printStatement.getExpression();
-        methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
+        methodVisitor.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
         expressionGenrator.generate(expression, scope);
         Type type = expression.getType();
         String descriptor = "(" + type.getDescriptor() + ")V";
         ClassType owner = new ClassType("java.io.PrintStream");
-        String fieldDescriptor = owner.getDescriptor();
-        methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL,fieldDescriptor, "println", descriptor, false);
+        String fieldDescriptor = owner.getInternalName();
+//        String owner = "java/io/PrintStream";
+        methodVisitor.visitMethodInsn(INVOKEVIRTUAL, fieldDescriptor, "println", descriptor, false);
+//        methodVisitor.visitMethodInsn(INVOKEVIRTUAL, owner, "println", descriptor, false);
+
     }
 
     public void generate(VariableDeclarationStatement variableDeclarationStatement, Scope scope) {
@@ -70,6 +76,6 @@ public class StatementGenerator {
                 methodVisitor.visitVarInsn(Opcodes.ASTORE, index);
             }
         }
-        scope.addLocalVariable(new LocalVariable(name, expression.getType()));
+//        scope.addLocalVariable(new LocalVariable(name, expression.getType()));
     }
 }
