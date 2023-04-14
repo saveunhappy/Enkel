@@ -34,6 +34,7 @@ public class StatementVisitor extends EnkelBaseVisitor<Statement> {
         String varName = ctx.name().getText();
         EnkelParser.ExpressionContext expressionCtx = ctx.expression();
         ExpressionVisitor expressionVisitor = new ExpressionVisitor(scope);
+        //这个expression可以是一个变量，可以是一个具体的值，也可以是一个函数
         Expression expression = expressionCtx.accept(expressionVisitor);
         scope.addLocalVariable(new LocalVariable(varName, expression.getType()));
         return new VariableDeclarationStatement(varName, expression);

@@ -89,7 +89,7 @@ public class ExpressionGenerator {
     }
 
     public String getFunctionDescriptor(FunctionCall functionCall, Scope scope) {
-        return Optional.of(getDescriptorForFunctionInScope(functionCall, scope))//先在自己的代码块中找，找不到了，去整个类中找，这个语言好像是能在函数中再声明函数
+        return Optional.of(getDescriptorForFunctionInScope(functionCall, scope))//先在自己的代码块中找，找不到了，去指定的那个类中找，owner就是指的那个类，所以这里走不到OrElse
                 .orElse(getDescriptorForFunctionOnClasspath(functionCall, scope))
                 .orElseThrow(() -> new CalledFunctionDoesNotExistException(functionCall, scope));
     }

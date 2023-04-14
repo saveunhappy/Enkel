@@ -44,8 +44,11 @@ public class ExpressionVisitor extends EnkelBaseVisitor<Expression> {
         String funName = ctx.functionName().getText();
         FunctionSignature signature = scope.getSignature(funName);
         List<FunctionParameter> signatureParameters = signature.getArguments();
-        List<EnkelParser.ExpressionContext> calledParameters = ctx.expressionList().expression();//这个就是 funa(funb(a),func(c)) funb(int a){var a = 1 print a fund(a)}
-        List<Expression> arguments = calledParameters.stream()//这里是去scope中找对应的变量，string[] args中的args也是参数，可以接受并且使用的，还有自己定义的 var x = "hello" var y = 1,获取到的就是x和y
+        //这个就是 funa(funb(a),func(c)) funb(int a){var a = 1 print a fund(a)}
+        List<EnkelParser.ExpressionContext> calledParameters = ctx.expressionList().expression();
+        //这里是去scope中找对应的变量，string[] args中的args也是参数，可以接受并且使用的，
+        // 还有自己定义的 var x = "hello" var y = 1,获取到的就是x和y
+        List<Expression> arguments = calledParameters.stream()
                 .map(expressionContext -> {
                     return expressionContext.accept(new ExpressionVisitor(scope));
                 })
