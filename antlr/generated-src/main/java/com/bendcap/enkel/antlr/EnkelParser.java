@@ -1426,12 +1426,12 @@ public class EnkelParser extends Parser {
 
 			case 4:
 				{
-				_localctx = new MULTIPLYContext(_localctx);
+				_localctx = new DIVIDEContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(217); match(T__5);
 				setState(218); expression(0);
-				setState(219); match(T__3);
+				setState(219); match(T__20);
 				setState(220); expression(0);
 				setState(221); match(T__4);
 				}
@@ -1439,12 +1439,12 @@ public class EnkelParser extends Parser {
 
 			case 5:
 				{
-				_localctx = new DIVIDEContext(_localctx);
+				_localctx = new MULTIPLYContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(223); match(T__5);
 				setState(224); expression(0);
-				setState(225); match(T__20);
+				setState(225); match(T__3);
 				setState(226); expression(0);
 				setState(227); match(T__4);
 				}
@@ -1489,22 +1489,22 @@ public class EnkelParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
 					case 1:
 						{
-						_localctx = new MULTIPLYContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new DIVIDEContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(243);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(244); match(T__3);
+						setState(244); match(T__20);
 						setState(245); expression(8);
 						}
 						break;
 
 					case 2:
 						{
-						_localctx = new DIVIDEContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new MULTIPLYContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(246);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(247); match(T__20);
+						setState(247); match(T__3);
 						setState(248); expression(6);
 						}
 						break;
@@ -1730,17 +1730,17 @@ public class EnkelParser extends Parser {
 		"\u00d2\u00d0\3\2\2\2\u00d3\u00d6\3\2\2\2\u00d4\u00d2\3\2\2\2\u00d4\u00d5"+
 		"\3\2\2\2\u00d5%\3\2\2\2\u00d6\u00d4\3\2\2\2\u00d7\u00d8\b\24\1\2\u00d8"+
 		"\u00f4\5(\25\2\u00d9\u00f4\5*\26\2\u00da\u00f4\5 \21\2\u00db\u00dc\7\22"+
-		"\2\2\u00dc\u00dd\5&\24\2\u00dd\u00de\7\24\2\2\u00de\u00df\5&\24\2\u00df"+
+		"\2\2\u00dc\u00dd\5&\24\2\u00dd\u00de\7\3\2\2\u00de\u00df\5&\24\2\u00df"+
 		"\u00e0\7\23\2\2\u00e0\u00f4\3\2\2\2\u00e1\u00e2\7\22\2\2\u00e2\u00e3\5"+
-		"&\24\2\u00e3\u00e4\7\3\2\2\u00e4\u00e5\5&\24\2\u00e5\u00e6\7\23\2\2\u00e6"+
+		"&\24\2\u00e3\u00e4\7\24\2\2\u00e4\u00e5\5&\24\2\u00e5\u00e6\7\23\2\2\u00e6"+
 		"\u00f4\3\2\2\2\u00e7\u00e8\7\22\2\2\u00e8\u00e9\5&\24\2\u00e9\u00ea\7"+
 		"\25\2\2\u00ea\u00eb\5&\24\2\u00eb\u00ec\7\23\2\2\u00ec\u00f4\3\2\2\2\u00ed"+
 		"\u00ee\7\22\2\2\u00ee\u00ef\5&\24\2\u00ef\u00f0\7\27\2\2\u00f0\u00f1\5"+
 		"&\24\2\u00f1\u00f2\7\23\2\2\u00f2\u00f4\3\2\2\2\u00f3\u00d7\3\2\2\2\u00f3"+
 		"\u00d9\3\2\2\2\u00f3\u00da\3\2\2\2\u00f3\u00db\3\2\2\2\u00f3\u00e1\3\2"+
 		"\2\2\u00f3\u00e7\3\2\2\2\u00f3\u00ed\3\2\2\2\u00f4\u0103\3\2\2\2\u00f5"+
-		"\u00f6\f\t\2\2\u00f6\u00f7\7\24\2\2\u00f7\u0102\5&\24\n\u00f8\u00f9\f"+
-		"\7\2\2\u00f9\u00fa\7\3\2\2\u00fa\u0102\5&\24\b\u00fb\u00fc\f\5\2\2\u00fc"+
+		"\u00f6\f\t\2\2\u00f6\u00f7\7\3\2\2\u00f7\u0102\5&\24\n\u00f8\u00f9\f\7"+
+		"\2\2\u00f9\u00fa\7\24\2\2\u00fa\u0102\5&\24\b\u00fb\u00fc\f\5\2\2\u00fc"+
 		"\u00fd\7\25\2\2\u00fd\u0102\5&\24\6\u00fe\u00ff\f\3\2\2\u00ff\u0100\7"+
 		"\27\2\2\u0100\u0102\5&\24\4\u0101\u00f5\3\2\2\2\u0101\u00f8\3\2\2\2\u0101"+
 		"\u00fb\3\2\2\2\u0101\u00fe\3\2\2\2\u0102\u0105\3\2\2\2\u0103\u0101\3\2"+

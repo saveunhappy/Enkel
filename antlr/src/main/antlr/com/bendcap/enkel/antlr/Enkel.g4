@@ -42,10 +42,10 @@ expressionList : expression (',' expression)* ;
 expression : variableReference #VarReference
            | value        #ValueExpr
            | functionCall #FUNCALL
-           |  '('expression '*' expression')' #MULTIPLY
-           | expression '*' expression  #MULTIPLY
            | '(' expression '/' expression ')' #DIVIDE
            | expression '/' expression #DIVIDE
+           |  '('expression '*' expression')' #MULTIPLY
+           | expression '*' expression  #MULTIPLY
            | '(' expression '+' expression ')' #ADD
            | expression '+' expression #ADD
            | '(' expression '-' expression ')' #SUBSTRACT
