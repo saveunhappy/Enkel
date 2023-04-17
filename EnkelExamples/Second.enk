@@ -1,13 +1,13 @@
 First {
         void main (string[] args) {
             var x = "Hello function call"
-            foo(x)
-
+            var y = 1
+            foo(x , y)
         }
 
-        void foo (string a) {
+        void foo (string a, int b) {
             print a
+            print b
         }
-
 
 }

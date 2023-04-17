@@ -11,7 +11,9 @@ classDeclaration : className '{' classBody '}' ;
 className : ID ;
 classBody :  function* ;
 function : functionDeclaration '{' (blockStatement)* '}' ;
-functionDeclaration : (type)? functionName '('(functionArgument)*')' ;
+//functionDeclaration : (type)? functionName '('(functionArgument)*')' ;
+functionDeclaration : (type)? functionName '('  (functionArgument)* (',' functionArgument)* ')' ;
+
 functionName : ID ;
 functionArgument : type ID functionParamdefaultValue? ;
 functionParamdefaultValue : '=' expression ;
