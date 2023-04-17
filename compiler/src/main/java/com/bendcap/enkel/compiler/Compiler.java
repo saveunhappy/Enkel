@@ -17,7 +17,7 @@ import java.io.OutputStream;
 public class Compiler implements Opcodes {
 
     public static void main(String[] args) {
-        String[] aaa = {"EnkelExamples/First.enk"};
+        String[] aaa = {"EnkelExamples/Second.enk"};
         try {
             new Compiler().compile(aaa);
         } catch (Exception e) {
