@@ -22,6 +22,20 @@ import java.util.Optional;
  */
 public class ExpressionGenerator {
     private MethodVisitor methodVisitor;
+    //原来是需要每个表达式之类的把scope都获取到传过来，
+    //现在是statement包含expression生成的东西和method生成相关的东西，相当于就是模板模式
+    //原来的compositeVisitor没有了，原来是StatementVisitor和ExpressionVisitor
+    //现在Expression继承自Statement，所以就去掉那个东西了。
+    /***
+     *
+     *         StatementVisitor statementVisitor = new StatementVisitor(scope);
+     *         ExpressionVisitor expressionVisitor = new ExpressionVisitor(scope);
+     *         CompositeVisitor<Statement> compositeVisitor = new CompositeVisitor<>(statementVisitor, expressionVisitor);
+     *         return ctx.blockStatement().stream()
+     *                 .map(compositeVisitor::accept)
+     *                 .collect(Collectors.toList());
+     *
+     */
     private Scope scope;
 
     public ExpressionGenerator(MethodVisitor methodVisitor, Scope scope) {
