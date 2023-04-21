@@ -34,7 +34,7 @@ public class StatementGenerator {
         Type type = expression.getType();
         String descriptor = "(" + type.getDescriptor() + ")V";
         ClassType owner = new ClassType("java.io.PrintStream");
-        String fieldDescriptor = owner.getDescriptor();
+        String fieldDescriptor = owner.getInternalName();
         methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, fieldDescriptor, "println", descriptor, false);
     }
 

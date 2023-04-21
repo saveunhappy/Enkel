@@ -51,7 +51,7 @@ public class StatementVisitor extends EnkelBaseVisitor<Statement> {
     public Statement visitRETURNVOID(EnkelParser.RETURNVOIDContext ctx) {
         return new ReturnStatement(new EmptyExpression(BuiltInType.VOID));
     }
-
+    //returnStatement : 'return' #RETURNVOID | ('return')? expression #RETURNWITHVALUE ; 因为这个是block，block中符合x+y+z的就只有这个，其他的
     @Override
     public Statement visitRETURNWITHVALUE(EnkelParser.RETURNWITHVALUEContext ctx) {
         Expression expression = ctx.expression().accept(expressionVisitor);
@@ -61,7 +61,7 @@ public class StatementVisitor extends EnkelBaseVisitor<Statement> {
     @Override
     public Statement visitBlock(EnkelParser.BlockContext ctx) {
         List<EnkelParser.StatementContext> blockStatementCtx = ctx.statement();
-        Scope newScope = new Scope(scope);
+        Scope newScope = new Scope(scope);//只传名字的那个创建是默认一个初始化的localVariables = new ArrayList<>();和functionSignatures = new ArrayList<>();现在直接传scope的是把变量的参数名和本地方法的声明都给放到这个scoop中了。
         StatementVisitor statementVisitor = new StatementVisitor(newScope);
         List<Statement> statements = blockStatementCtx.stream()
                 .map(stmt -> stmt.accept(statementVisitor))

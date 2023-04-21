@@ -68,11 +68,12 @@ public class ExpressionGenerator {
 
     public void generate(FunctionCall functionCall) {
         Collection<Expression> parameters = functionCall.getParameters();
+        //这个时候就是把所有的参数的值进行放到字节码中了，BIPUSH
         parameters.forEach(param -> param.accept(this));
         Type owner = functionCall.getOwner().orElse(new ClassType(scope.getClassName()));
-        String methodDescriptor = getFunctionDescriptor(functionCall);
-        String ownerDescriptor = owner.getInternalName();
-        String functionName = functionCall.getFunctionName();
+        String methodDescriptor = getFunctionDescriptor(functionCall);//(III)I
+        String ownerDescriptor = owner.getInternalName();//SumCalculator
+        String functionName = functionCall.getFunctionName();//sum
         methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, ownerDescriptor, functionName, methodDescriptor, false);
     }
 
