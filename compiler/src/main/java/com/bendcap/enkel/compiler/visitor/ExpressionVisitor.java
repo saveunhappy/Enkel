@@ -49,12 +49,12 @@ public class ExpressionVisitor extends EnkelBaseVisitor<Expression> {
     public Expression visitFunctionCall(EnkelParser.FunctionCallContext ctx) {
         String funName = ctx.functionName().getText();
         FunctionSignature signature = scope.getSignature(funName);
-        List<FunctionParameter> signatureParameters = signature.getArguments();
-        List<EnkelParser.ExpressionContext> calledParameters = ctx.expressionList().expression();
+//        List<FunctionParameter> signatureParameters = signature.getArguments();
+        List<EnkelParser.ExpressionContext> calledParameters = ctx.expressionList().expression();//调用SonarScanner(projectKey,exclusion),expressionList就是括号里面包含着的，可以是无参的构造，所以正则表达式是？expressionList : expression? (',' expression)* ;多个参数，那就得加逗号了，然后表达式可以是变量，值，函数调用，
         List<Expression> arguments = calledParameters.stream()
                 .map((expressionContext -> expressionContext.accept(this)))
                 .collect(Collectors.toList());
-        Type returnType = signature.getReturnType();
+//        Type returnType = signature.getReturnType();
         return new FunctionCall(signature, arguments, null);
 
     }
