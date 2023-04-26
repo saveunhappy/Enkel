@@ -77,10 +77,12 @@ public class ExpressionGenerator {
         FunctionSignature signature = functionCall.getSignature();
         List<Expression> arguments = functionCall.getArguments();
         List<FunctionParameter> parameters = signature.getParameters();
+        //传的参数，大于方法定义的参数的个数，那，直接就报错，没有这个方法啊。
         if (arguments.size() > parameters.size()) {
             throw new BadArgumentsToFunctionCallException(functionCall);
         }
         arguments.forEach(argument -> argument.accept(this));
+        //这里就是有默认参数，但是，默认参数必须是在后面，就跟可变参数一样，否则你怎么知道是哪个呢？
         for(int i=arguments.size();i<parameters.size();i++) {
             Expression defaultParameter = parameters.get(i).getDefaultValue()
                     .orElseThrow(() -> new BadArgumentsToFunctionCallException(functionCall));
