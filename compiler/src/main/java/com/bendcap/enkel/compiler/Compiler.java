@@ -15,15 +15,14 @@ import java.io.OutputStream;
  * Created by KevinOfNeu on 2018/7/18  21:14.
  */
 public class Compiler implements Opcodes {
-
     public static void main(String[] args) {
+        String[] a = {"EnkelExamples/AllPrimitiveTypes.enk"};
         try {
-            new Compiler().compile(args);
+            new Compiler().compile(a);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
     public void compile(String[] args) throws Exception {
         final ARGUMENT_ERRORS argumentsErrors = getArgumentValidationErrors(args);
         if (argumentsErrors != ARGUMENT_ERRORS.NONE) {

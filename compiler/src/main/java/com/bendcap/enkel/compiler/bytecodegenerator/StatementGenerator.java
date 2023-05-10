@@ -11,7 +11,6 @@ import com.bendcap.enkel.compiler.domain.statement.*;
 import com.bendcap.enkel.compiler.domain.type.BuiltInType;
 import com.bendcap.enkel.compiler.domain.type.ClassType;
 import com.bendcap.enkel.compiler.domain.type.Type;
-import com.sun.org.apache.bcel.internal.generic.IFEQ;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
@@ -39,7 +38,7 @@ public class StatementGenerator {
         Type type = expression.getType();
         String descriptor = "(" + type.getDescriptor() + ")V";
         ClassType owner = new ClassType("java.io.PrintStream");
-        String fieldDescriptor = owner.getDescriptor();
+        String fieldDescriptor = owner.getInternalName();
         methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, fieldDescriptor, "println", descriptor, false);
     }
 
