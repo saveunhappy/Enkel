@@ -31,7 +31,7 @@ public class ForStatementVisitor extends EnkelBaseVisitor<RangedForStatement> {
         Expression endExpression = forConditionsContext.endExpr.accept(expressionVisitor);
         EnkelParser.VariableReferenceContext iterator = forConditionsContext.iterator;
         String varName = iterator.getText();
-        if (scope.localVariableExists(varName)) {
+        if (scope.localVariableExists(varName)) {//for x from 1 to 10 看看x之前有没有声明过，var x = 10
             Statement iteratorVariable = new AssignmentStatement(varName, startExpression);
             Statement statement = ctx.statement().accept(statementVisitor);
             return new RangedForStatement(iteratorVariable, startExpression, endExpression, statement, varName, scope);

@@ -27,7 +27,7 @@ public class FunctionVisitor extends EnkelBaseVisitor<Function> {
         return new Function(signature, block);
     }
 
-
+    //就是把方法签名的参数放到本地变量中去
     private void addParametersAsLocalVariables(FunctionSignature signature) {
         signature.getParameters().stream()
                 .forEach(param -> scope.addLocalVariable(new LocalVariable(param.getName(), param.getType())));

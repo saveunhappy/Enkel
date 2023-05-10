@@ -11,7 +11,6 @@ import com.bendcap.enkel.compiler.domain.statement.*;
 import com.bendcap.enkel.compiler.domain.type.BuiltInType;
 import com.bendcap.enkel.compiler.domain.type.ClassType;
 import com.bendcap.enkel.compiler.domain.type.Type;
-import com.sun.org.apache.bcel.internal.generic.IFEQ;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
@@ -39,7 +38,7 @@ public class StatementGenerator {
         Type type = expression.getType();
         String descriptor = "(" + type.getDescriptor() + ")V";
         ClassType owner = new ClassType("java.io.PrintStream");
-        String fieldDescriptor = owner.getDescriptor();
+        String fieldDescriptor = owner.getInternalName();
         methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, fieldDescriptor, "println", descriptor, false);
     }
 
@@ -105,7 +104,7 @@ public class StatementGenerator {
         ConditionalExpression iteratorLessThanEndConditional = new ConditionalExpression(iteratorVariable, endExpression, CompareSign.LESS);
 
         iterator.accept(scopeGeneratorWithNewScope);
-
+        //当前for循环中的变量是否小于to后面的那个数字，
         iteratorLessThanEndConditional.accept(exprGeneratorWithNewScope);
         methodVisitor.visitJumpInsn(Opcodes.IFNE,incrementationSection);
 
@@ -113,7 +112,7 @@ public class StatementGenerator {
         methodVisitor.visitJumpInsn(Opcodes.IFNE,decrementationSection);
 
         methodVisitor.visitLabel(incrementationSection);
-        rangedForStatement.getStatement().accept(scopeGeneratorWithNewScope);
+        rangedForStatement.getStatement().accept(scopeGeneratorWithNewScope);//循环里面的循环体，就是该在这里执行，然后进行累加或者累减
         methodVisitor.visitIincInsn(newScope.getLocalVariableIndex(iteratorVarName),1);
         iteratorGreaterThanEndConditional.accept(exprGeneratorWithNewScope);
         methodVisitor.visitJumpInsn(Opcodes.IFEQ,incrementationSection);
