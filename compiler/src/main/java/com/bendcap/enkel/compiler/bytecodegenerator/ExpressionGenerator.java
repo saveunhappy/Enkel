@@ -53,23 +53,6 @@ public class ExpressionGenerator {
         Type type = value.getType();
         String stringValue = value.getValue();
         Object transformedValue = TypeResolver.getValueFromString(stringValue, type);
-//        methodVisitor.visitLdcInsn(transformedValue);
-
-//        if (type == BuiltInType.INT) {
-//            int intValue = Integer.parseInt(stringValue);
-//            methodVisitor.visitIntInsn(Opcodes.BIPUSH, intValue);
-//        } else if (type == BuiltInType.STRING) {
-//            stringValue = StringUtils.removeStart(stringValue, "\"");
-//            stringValue = StringUtils.removeEnd(stringValue, "\"");
-//            methodVisitor.visitLdcInsn(stringValue);
-//        } else if (type == BuiltInType.BOOLEAN) {
-//            if ((Boolean) transformedValue) {
-//                methodVisitor.visitInsn(Opcodes.ICONST_1);
-//            } else {
-//                methodVisitor.visitInsn(Opcodes.ICONST_0);
-//            }
-//
-//        }
         if(type == BuiltInType.BOOLEAN){
             if((Boolean) transformedValue){
                 methodVisitor.visitInsn(Opcodes.ICONST_1);
