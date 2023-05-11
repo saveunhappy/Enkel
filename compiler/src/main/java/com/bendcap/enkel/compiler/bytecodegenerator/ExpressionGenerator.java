@@ -53,6 +53,16 @@ public class ExpressionGenerator {
         String stringValue = value.getValue();
         Object transformedValue = TypeResolver.getValueFromString(stringValue, type);
         methodVisitor.visitLdcInsn(transformedValue);
+
+//        if(type == BuiltInType.BOOLEAN){
+//            if((Boolean) transformedValue){
+//                methodVisitor.visitInsn(Opcodes.ICONST_1);
+//            }else {
+//                methodVisitor.visitInsn(Opcodes.ICONST_0);
+//            }
+//        }else{
+//            methodVisitor.visitLdcInsn(transformedValue);
+//        }
     }
 
 
