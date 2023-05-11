@@ -38,7 +38,8 @@ public class TypeResolver {
             } else if (Doubles.tryParse(value) != null) {
                 return BuiltInType.DOUBLE;
             }
-        } else if (BooleanUtils.toBoolean(value)) {
+//        } else if (BooleanUtils.toBoolean(value)) {
+        } else if (BooleanUtils.toBooleanObject(value) != null) {
             return BuiltInType.BOOLEAN;
         }
         return BuiltInType.STRING;

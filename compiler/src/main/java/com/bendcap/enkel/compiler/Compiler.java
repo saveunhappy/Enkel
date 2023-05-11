@@ -4,6 +4,7 @@ import com.bendcap.enkel.compiler.domain.global.CompilationUnit;
 import com.bendcap.enkel.compiler.bytecodegenerator.BytecodeGenerator;
 import com.bendcap.enkel.compiler.validation.ARGUMENT_ERRORS;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.objectweb.asm.Opcodes;
 
 import java.io.File;
@@ -17,6 +18,15 @@ import java.io.OutputStream;
 public class Compiler implements Opcodes {
     public static void main(String[] args) {
         String[] a = {"EnkelExamples/AllPrimitiveTypes.enk"};
+//        boolean aFalse = BooleanUtils.toBoolean("false");
+//        System.out.println(aFalse);
+//        Boolean aBoolean = BooleanUtils.toBooleanObject("false");
+//        Boolean bBoolean = BooleanUtils.toBooleanObject("true");
+//        Boolean cBoolean = BooleanUtils.toBooleanObject("1true");
+//        System.out.println(aBoolean);
+//        System.out.println(bBoolean);
+//        System.out.println(cBoolean);
+
         try {
             new Compiler().compile(a);
         } catch (Exception e) {

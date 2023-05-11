@@ -13,6 +13,7 @@ import com.bendcap.enkel.compiler.exception.BadArgumentsToFunctionCallException;
 import com.bendcap.enkel.compiler.exception.CalledFunctionDoesNotExistException;
 import com.bendcap.enkel.compiler.utils.DecriptorFactory;
 import com.bendcap.enkel.compiler.utils.TypeResolver;
+import org.apache.commons.lang3.StringUtils;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
@@ -52,7 +53,32 @@ public class ExpressionGenerator {
         Type type = value.getType();
         String stringValue = value.getValue();
         Object transformedValue = TypeResolver.getValueFromString(stringValue, type);
-        methodVisitor.visitLdcInsn(transformedValue);
+//        methodVisitor.visitLdcInsn(transformedValue);
+
+//        if (type == BuiltInType.INT) {
+//            int intValue = Integer.parseInt(stringValue);
+//            methodVisitor.visitIntInsn(Opcodes.BIPUSH, intValue);
+//        } else if (type == BuiltInType.STRING) {
+//            stringValue = StringUtils.removeStart(stringValue, "\"");
+//            stringValue = StringUtils.removeEnd(stringValue, "\"");
+//            methodVisitor.visitLdcInsn(stringValue);
+//        } else if (type == BuiltInType.BOOLEAN) {
+//            if ((Boolean) transformedValue) {
+//                methodVisitor.visitInsn(Opcodes.ICONST_1);
+//            } else {
+//                methodVisitor.visitInsn(Opcodes.ICONST_0);
+//            }
+//
+//        }
+        if(type == BuiltInType.BOOLEAN){
+            if((Boolean) transformedValue){
+                methodVisitor.visitInsn(Opcodes.ICONST_1);
+            }else {
+                methodVisitor.visitInsn(Opcodes.ICONST_0);
+            }
+        }else{
+            methodVisitor.visitLdcInsn(transformedValue);
+        }
     }
 
 
@@ -65,7 +91,7 @@ public class ExpressionGenerator {
             throw new BadArgumentsToFunctionCallException(functionCall);
         }
         arguments.forEach(argument -> argument.accept(this));
-        for(int i=arguments.size();i<parameters.size();i++) {
+        for (int i = arguments.size(); i < parameters.size(); i++) {
             Expression defaultParameter = parameters.get(i).getDefaultValue()
                     .orElseThrow(() -> new BadArgumentsToFunctionCallException(functionCall));
             defaultParameter.accept(this);
@@ -94,12 +120,12 @@ public class ExpressionGenerator {
         Expression leftExpression = expression.getLeftExpression();
         leftExpression.accept(this);
         String leftExprDescriptor = leftExpression.getType().getDescriptor();
-        String descriptor = "("+leftExprDescriptor+ ")Ljava/lang/StringBuilder;";
+        String descriptor = "(" + leftExprDescriptor + ")Ljava/lang/StringBuilder;";
         methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", descriptor, false);
         Expression rightExpression = expression.getRightExpression();
         rightExpression.accept(this);
         String rightExprDescriptor = rightExpression.getType().getDescriptor();
-        descriptor = "("+rightExprDescriptor+ ")Ljava/lang/StringBuilder;";
+        descriptor = "(" + rightExprDescriptor + ")Ljava/lang/StringBuilder;";
         methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", descriptor, false);
         methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
     }
