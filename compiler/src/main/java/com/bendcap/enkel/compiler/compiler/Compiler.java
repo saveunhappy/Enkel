@@ -17,8 +17,9 @@ import java.io.OutputStream;
 public class Compiler {
 
     public static void main(String[] args) {
+        String[] a = {"EnkelExamples/NamedParams.enk"};
         try {
-            new Compiler().compile(args);
+            new Compiler().compile(a);
         } catch (Exception e) {
             e.printStackTrace();
         }
