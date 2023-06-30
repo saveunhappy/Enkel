@@ -28,25 +28,28 @@ public class ClassVisitor extends EnkelBaseVisitor<ClassDeclaration> {
 
     @Override
     public ClassDeclaration visitClassDeclaration(EnkelParser.ClassDeclarationContext ctx) {
-        String name = ctx.className().getText();
+        String className = ctx.className().getText();
         FunctionSignatureVisitor functionSignatureVisitor = new FunctionSignatureVisitor(scope);
         List<EnkelParser.FunctionContext> methodsCtx = ctx.classBody().function();
-        MetaData metaData = new MetaData(ctx.className().getText(),"java.lang.Object");
+        MetaData metaData = new MetaData(className,"java.lang.Object");
         scope = new Scope(metaData);
         methodsCtx.stream()
                 .map(method -> method.functionDeclaration().accept(functionSignatureVisitor))
                 .forEach(scope::addSignature);
-        boolean defaultConstructorExists = scope.isParameterLessSignatureExists(name);
-        addDefaultConstructorSignatureToScope(name, defaultConstructorExists);
+        //看一下默认的构造器是否存在，
+        boolean defaultConstructorExists = scope.isParameterLessSignatureExists(className);
+        //不存在的话就添加，存在就不添加，根据上面那行代码的返回值来决定,添加到方法签名中去。
+        addDefaultConstructorSignatureToScope(className, defaultConstructorExists);
         List<Function> methods = methodsCtx.stream()
                 .map(method -> method.accept(new FunctionVisitor(scope)))
                 .collect(Collectors.toList());
         if(!defaultConstructorExists) {
             methods.add(getDefaultConstructor());
         }
+        //这里去生成了main方法
         methods.add(getGeneratedMainMethod());
 
-        return new ClassDeclaration(name, methods);
+        return new ClassDeclaration(className, methods);
     }
 
     private void addDefaultConstructorSignatureToScope(String name, boolean defaultConstructorExists) {
@@ -67,7 +70,7 @@ public class ClassVisitor extends EnkelBaseVisitor<ClassDeclaration> {
         ConstructorCall constructorCall = new ConstructorCall(scope.getClassName());
         FunctionSignature startFunSignature = new FunctionSignature("start", Collections.emptyList(), BultInType.VOID);
         FunctionCall startFunctionCall = new FunctionCall(startFunSignature, Collections.emptyList(), scope.getClassType());
-        Block block = new Block(new Scope(scope), Arrays.asList(constructorCall,startFunctionCall));
+        Block block = new Block(new Scope(scope), Arrays.asList(constructorCall,startFunctionCall));//第二个参数就是List<Statement> statement,先执行这两个，就是调用构造器和start
         return new Function(functionSignature, block);
     }
 }

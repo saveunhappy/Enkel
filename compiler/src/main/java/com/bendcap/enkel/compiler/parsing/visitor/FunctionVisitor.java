@@ -23,7 +23,9 @@ public class FunctionVisitor extends EnkelBaseVisitor<Function> {
 
     @Override
     public Function visitFunction(@NotNull EnkelParser.FunctionContext ctx) {
+        //这个scope是外面传进来的，
         FunctionSignature signature = ctx.functionDeclaration().accept(new FunctionSignatureVisitor(scope));
+        //scope.getClassType()就是当前类
         scope.addLocalVariable(new LocalVariable("this",scope.getClassType()));
         addParametersAsLocalVariables(signature);
         Statement block = getBlock(ctx);

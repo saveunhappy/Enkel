@@ -40,7 +40,7 @@ public class Scope {
         localVariables =  Lists.newArrayList(scope.localVariables);
         functionSignatures = Lists.newArrayList(scope.functionSignatures);
     }
-
+    //到添加到时候就执行这个方法，之前有到话就报错
     public void addSignature(FunctionSignature signature) {
         if(isParameterLessSignatureExists(signature.getName())) {
             throw new MethodWithNameAlreadyDefinedException(signature);
@@ -67,6 +67,7 @@ public class Scope {
             return new FunctionSignature("super", Collections.emptyList(), BultInType.VOID);
         }
         return functionSignatures.stream()
+                //这个identifier就是functionName，目前是可以指定参数的值。signature就是所有的方法签名。作用就是看是否匹配
                 .filter(signature -> signature.matches(identifier,arguments))
                 .findFirst()
                 .orElseThrow(() -> new MethodSignatureNotFoundException(this, identifier,arguments));

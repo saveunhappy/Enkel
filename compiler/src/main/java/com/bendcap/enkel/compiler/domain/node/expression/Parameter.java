@@ -13,7 +13,7 @@ public class Parameter implements Expression {
     private final String name;
     private Optional<Expression> defaultValue;
     private Type type;
-
+    //参数名，参数类型，默认值
     public Parameter(String name, Type type, Optional<Expression> defaultValue) {
         this.type = type;
         this.name = name;

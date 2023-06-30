@@ -22,11 +22,12 @@ public final class TypeResolver {
         if(typeContext == null) return BultInType.VOID;
         String typeName = typeContext.getText();
         if(typeName.equals("java.lang.String")) return BultInType.STRING;
+        //返回的就是那个类型的枚举
         Optional<? extends Type> builtInType = getBuiltInType(typeName);
         if(builtInType.isPresent()) return builtInType.get();
         return new ClassType(typeName);
     }
-
+    //核心就在这里，会根据你的值来判断是什么类型的
     public static Type getFromValue(String value) {
         if(StringUtils.isEmpty(value)) return BultInType.VOID;
         if(NumberUtils.isNumber(value)) {

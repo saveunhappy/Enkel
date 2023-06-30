@@ -23,6 +23,7 @@ public class ParameterExpressionVisitor extends EnkelBaseVisitor<Parameter> {
     public Parameter visitParameter(@NotNull EnkelParser.ParameterContext ctx) {
         String name = ctx.ID().getText();
         Type type = TypeResolver.getFromTypeName(ctx.type());
+        //参数名，参数类型，默认值
         return new Parameter(name, type, Optional.empty());
     }
     @Override

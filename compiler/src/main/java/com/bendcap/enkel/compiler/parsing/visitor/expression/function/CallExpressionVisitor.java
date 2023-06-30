@@ -32,7 +32,7 @@ public class CallExpressionVisitor extends EnkelBaseVisitor<Call> {
             throw new FunctionNameEqualClassException(functionName);
         }
         List<Argument> arguments = getArgumentsForCall(ctx.argumentList());
-        FunctionSignature signature = scope.getMethodCallSignature(functionName, arguments);
+        FunctionSignature signature = scope.getMethodCallSignature(functionName, arguments);//
         boolean ownerIsExplicit = ctx.owner != null;
         if (ownerIsExplicit) {
             Expression owner = ctx.owner.accept(expressionVisitor);
@@ -58,7 +58,7 @@ public class CallExpressionVisitor extends EnkelBaseVisitor<Call> {
     private List<Argument> getArgumentsForCall(EnkelParser.ArgumentListContext argumentsListCtx) {
         if (argumentsListCtx != null) {
             ArgumentExpressionsListVisitor visitor = new ArgumentExpressionsListVisitor(expressionVisitor);
-            return argumentsListCtx.accept(visitor);
+            return argumentsListCtx.accept(visitor); //为什么返回的是list？因为g4文件返回的就是list,正则表达式就是*
         }
         return Collections.emptyList();
     }
