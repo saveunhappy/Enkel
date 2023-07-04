@@ -53,7 +53,9 @@ public enum BultInType implements Type {
 
     @Override
     public String getInternalName() {
-        return getDescriptor();
+        return opcodes == TypeSpecificOpcodes.OBJECT ? typeClass.getName().replace(".", "/") : getDescriptor();
+
+//        return getDescriptor();
     }
 
     @Override

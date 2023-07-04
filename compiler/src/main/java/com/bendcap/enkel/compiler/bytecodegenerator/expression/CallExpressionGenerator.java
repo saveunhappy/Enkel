@@ -31,7 +31,9 @@ public class CallExpressionGenerator {
 
     public void generate(ConstructorCall constructorCall) {
         FunctionSignature signature = scope.getConstructorCallSignature(constructorCall.getIdentifier(), constructorCall.getArguments());
-        String ownerDescriptor = new ClassType(signature.getName()).getDescriptor();
+//        String ownerDescriptor = new ClassType(signature.getName()).getDescriptor();
+        String ownerDescriptor = new ClassType(signature.getName()).getInternalName();
+
         methodVisitor.visitTypeInsn(Opcodes.NEW, ownerDescriptor);
         methodVisitor.visitInsn(Opcodes.DUP);
         String methodDescriptor = DescriptorFactory.getMethodDescriptor(signature);
