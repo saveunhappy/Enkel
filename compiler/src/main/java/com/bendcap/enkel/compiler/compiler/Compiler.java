@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Created by KevinOfNeu on 2018/7/18  21:14.
@@ -18,6 +20,10 @@ public class Compiler {
 
     public static void main(String[] args) {
         try {
+            String[] aaa = {"EnkelExamples/ClassPathCalls/Library.enk"};
+            String[] bbb = {"EnkelExamples/ClassPathCalls/Client.enk"};
+//            new Compiler().compile(aaa);
+//            new Compiler().compile(bbb);
             new Compiler().compile(args);
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,7 +58,7 @@ public class Compiler {
         final byte[] byteCode = bytecodeGenerator.generate(compilationUnit);
         String className = compilationUnit.getClassName();
         String fileName = className + ".class";
-        OutputStream os = new FileOutputStream(fileName);
+        OutputStream os = Files.newOutputStream(Paths.get(fileName));
         IOUtils.write(byteCode, os);
     }
 }
