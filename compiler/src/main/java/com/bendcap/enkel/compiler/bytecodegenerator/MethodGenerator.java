@@ -27,7 +27,9 @@ public class MethodGenerator {
 
     public void generate(Function function) {
         String name = function.getName();
+        //是否是main方法
         boolean isMain = name.equals(MAIN_FUN_NAME);
+        //获取方法的描述，比如（）V就是void，无返回值的。
         String description = DescriptorFactory.getMethodDescriptor(function);
         Block block = (Block) function.getRootStatement();
         Scope scope = block.getScope();
