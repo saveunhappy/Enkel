@@ -1,7 +1,11 @@
 Fields {
  int field
+ int a
  start {
+    a = 6
+
     field = 5
     print field
+    print a
  }
 }
