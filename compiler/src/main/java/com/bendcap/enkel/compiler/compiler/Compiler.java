@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Created by KevinOfNeu on 2018/7/18  21:14.
@@ -18,7 +20,9 @@ public class Compiler {
 
     public static void main(String[] args) {
         try {
-            new Compiler().compile(args);
+            String[] path = {"EnkelExamples/Fields.enk"};
+//            new Compiler().compile(args);
+            new Compiler().compile(path);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,7 +56,7 @@ public class Compiler {
         final byte[] byteCode = bytecodeGenerator.generate(compilationUnit);
         String className = compilationUnit.getClassName();
         String fileName = className + ".class";
-        OutputStream os = new FileOutputStream(fileName);
+        OutputStream os = Files.newOutputStream(Paths.get(fileName));
         IOUtils.write(byteCode, os);
     }
 }
