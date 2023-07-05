@@ -77,7 +77,7 @@ public class Scope {
         return getMethodCallSignature(Optional.empty(), getClassName(), arguments);
     }
     public FunctionSignature getMethodCallSignature(Optional<Type> owner,String methodName,List<Argument> arguments) {
-        boolean isDifferentThanCurrentClass = owner.isPresent() && !owner.get().equals(getClassType());
+        boolean isDifferentThanCurrentClass = owner.isPresent() && !owner.get().equals(getClassType());//scope在刚开始就接受一个MetaData，里面就是类名，在这里获取类名，看是否和metaData传过来的，如果不是，那就是说明引用的是已经生成的class。通过java -classpath 参数 .在当前目录找的，通过class.forName来找到的，但是正规class.forName是要有包名的，Class<?> clazz = Class.forName("com.example.MyClass", false);但是这里是在一个类里面，并且没有包，所以就直接用名字了
         if(isDifferentThanCurrentClass) {
             List<Type> argumentsTypes = arguments.stream().map(Argument::getType).collect(toList());
             return new ClassPathScope().getMethodSignature(owner.get(), methodName, argumentsTypes)

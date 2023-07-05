@@ -1,0 +1,70 @@
+Client {
+     1.先解析start方法，添加到方法签名中。
+     2.再去解析这个方法，去解析这个block
+     3.然后就是方法声明：解析到myLibrary这个变量，然后解析 new library（）,进入构造器解析，构造器调用，
+     4.解析完之后，赋值给myLibrary，就是本地变量，然后把这个添加到本地变量中去
+     5.再去解析addition这是个变量，然后再去解析右边的visitFunctionCall，函数调用
+     6.然后却解析方法的参数，有几个参数，这个时候就是返回的argument对象，因为可以指定参数的值，所以argument
+     对象里面有参数的类型，参数的值，还有一个是否是指定参数，因为参数位置是可以变的，所以参数的类型，参数的值是
+     一个expression，名称就是parameterName,如果像Java那样调用。就是空的，如果按照那种方式调用，就会有值
+      具体看下面的例子。
+      7.然后去检查owner是否存在，这个是否多余呢？目前不知道就是这个myLibrary.add(5,2)
+      expression : variableReference #VarReference
+                 | owner=expression '.' functionName '(' argumentList ')' #FunctionCall
+      8.然后去找那个方法，这个找的方法还要去看你这个类是不是当前类的方法，如果不是的话，就用class.forName
+      去加载进来，前提是你已经生成了那个类的字节码，并且可以加载到
+      9.然后就到了ClassPathScope，去类路径去找了。根据方法和参数类型，通过反射去调用，因为你的
+      参数类型是按照顺序的，所以这边也是按照顺序的，没毛病，然后根据反射的Method类去获取到参数类型，返回值
+      类型，最终用FunctionSignature包裹着创建了一个新的方法签名，就是调用的那个类的，通过字节码获取的
+      10.有了方法签名，有了参数的值，也知道了变量的值，那么就可以创建一个方法调用的对象了。
+      11.最后就解析到了print语句，一个是字符串，一个是变量，这个就是二元表达式了。
+      12.至此，start方法结束
+      13.然后去看有没有默认的构造器，如果没有的话，那先去创建一个构造器的方法签名。然后再去检查一下，返回
+      回来，如果有的话，那么就要去加一个main方法，就
+      14.首先是main方法，然后是构造器，然后是start方法，因为main是入口。然后，main方法
+      有一个{}所以是一个block，把构造器和start方法都塞到一个block里面去。
+      15.最后返回一个function：
+    public Function(FunctionSignature functionSignature, Statement rootStatement) {
+        this.functionSignature = functionSignature;
+        this.rootStatement = rootStatement;
+    }
+      这个就是rootStatement。main方法执行。
+      16.至此，所有的方法都解析完了，然后该根据这个类和里面的方法去生成字节码了。
+      17.首先去声明一个Java的类是哪个版本的，52代表Java8然后父类是Object，这都声明好了。
+
+      18.第一个是start方法，获取方法描述符之类的()V这个额就是代表没有参数，并且是void的返回值
+      19. block也是statement的子类，所以rootStatement可以强转为block，然后这个block里面有好多个
+      statement，就是start方法里面的声明变量，打印的那几个语句
+      20.StatementGenerator statementGenerator = new StatementGenerator(mv, scope);
+      block.accept(statementGenerator);
+      21.现在你已经有了去生成字节码的StatementGenerator了，开始解析吧。
+      22.然后解析到第一行，还是之前的，现在重复了，还是构造器调用，然后生成字节码，
+      这个对应应该有包名，而且要把.转换为/  比如com.mypack.Library转换为com/mypack/Library
+      23.然后继续一步一步解析，赋值，生成字节码，大部分的accept就是去写入字节码的。
+      24.然后记得有个main方法，main方法是要创建当前类的对象去调用start方法的。所以会有两次
+      去解析构造器。
+    start {
+        var myLibrary = new Library()
+        var addition = myLibrary.add(5,2)
+        print "Client: Result returned from 'Library.add' = " + addition
+    }
+
+}
+
+
+    start() {
+         createRectangle(x1->25,x2-> -25,y1->50,y2->-50)
+         createRectangle(25,50,-25,-50)
+         otherStuff()
+     }
+
+     otherStuff() {
+        return
+     }
+
+     createRectangle (int x1,int y1,int x2, int y2) {
+         print "x1=" + x1
+         print "x2=" + x2
+         print "y1=" + y1
+         print "y2=" + y2
+     }
