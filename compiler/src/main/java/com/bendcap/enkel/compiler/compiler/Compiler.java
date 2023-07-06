@@ -18,7 +18,10 @@ public class Compiler {
 
     public static void main(String[] args) {
         try {
-            new Compiler().compile(args);
+            String[] path = {"EnkelExamples/EqualitySyntax.enk"};
+//            new Compiler().compile(args);
+            new Compiler().compile(path);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
