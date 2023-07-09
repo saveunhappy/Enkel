@@ -1,0 +1,40 @@
+public class EqualitySyntax {
+  public void start();
+    Code:
+       0: new           #8                  // class java/lang/Integer
+       3: dup
+       4: ldc           #9                  // int 455
+       6: invokespecial #13                 // Method java/lang/Integer."<init>":(I)V
+       9: astore_1
+      10: new           #8                  // class java/lang/Integer
+      13: dup
+      14: ldc           #9                  // int 455
+      16: invokespecial #13                 // Method java/lang/Integer."<init>":(I)V
+      19: astore_2
+      20: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+      23: aload_1
+      24: aload_2
+      25: invokevirtual #23                 // Method java/lang/Integer.equals:(Ljava/lang/Object;)Z
+      28: iconst_1
+      29: ixor
+      30: ifeq          37
+      33: iconst_0
+      34: goto          38
+      37: iconst_1
+      38: invokevirtual #29                 // Method java/io/PrintStream.println:(Z)V
+      41: return
+
+  public EqualitySyntax();
+    Code:
+       0: aload_0
+       1: invokespecial #31                 // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: new           #2                  // class EqualitySyntax
+       3: dup
+       4: invokespecial #34                 // Method "<init>":()V
+       7: invokevirtual #36                 // Method start:()V
+      10: return
+}

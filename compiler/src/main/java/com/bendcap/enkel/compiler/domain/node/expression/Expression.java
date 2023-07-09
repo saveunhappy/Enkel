@@ -10,7 +10,7 @@ import com.bendcap.enkel.compiler.domain.type.Type;
  */
 public interface Expression extends Statement {
     Type getType();
-    void accept(ExpressionGenerator genrator);
+    void accept(ExpressionGenerator generator);
     @Override
     void accept(StatementGenerator generator);
 }

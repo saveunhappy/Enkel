@@ -18,10 +18,13 @@ public class Compiler {
 
     public static void main(String[] args) {
         try {
-            String[] path = {"EnkelExamples/EqualitySyntax.enk"};
-//            new Compiler().compile(args);
-            new Compiler().compile(path);
-
+//            String[] path = {"EnkelExamples/EqualitySyntax.enk"};
+            String[] path = {"EnkelExamples/Loops.enk"};
+            new Compiler().compile(args);
+//            new Compiler().compile(path);
+            Integer var1 = new Integer(455);
+            Integer var2 = new Integer(455);
+            System.out.println(!(var1.equals(var2) ^ true));
         } catch (Exception e) {
             e.printStackTrace();
         }

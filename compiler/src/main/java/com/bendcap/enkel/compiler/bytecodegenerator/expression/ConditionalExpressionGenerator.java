@@ -41,7 +41,7 @@ public class ConditionalExpressionGenerator {
         methodVisitor.visitInsn(Opcodes.ICONST_1);
         methodVisitor.visitLabel(endLabel);
     }
-
+//    public boolean equals(Object obj) {return (this == obj);} 创建一个方法签名，参数是obj，参数名字是什么，那就obj,这里简称o
     private void generateObjectsComparison(Expression leftExpression, Expression rightExpression, CompareSign compareSign) {
         Parameter parameter = new Parameter("o", new ClassType("java.lang.Object"), Optional.empty());
         List<Parameter> parameters = Collections.singletonList(parameter);
